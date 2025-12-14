@@ -1,0 +1,12 @@
+.email-check {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.email-check.available {
+    color: #4CAF50;
+}
+
+.email-check.taken {
+    color: #f44336;
+}

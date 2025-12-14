@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - Salon Kecantikan</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
+    <link rel="stylesheet" href="assets/css/dashboard.css?v=2">
+    <link rel="stylesheet" href="assets/css/booking.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+</head>
+<body>
+<div class="wrap">
+    <div class="card">
+        <h3>PESAN LAYANAN</h3>
+        <div id="message" class="alert"></div>
+        
+        <form id="bookingForm">
+            <label>Pilih Cabang</label>
+            <select id="cabang_id" name="cabang_id" required>
+                <option value="">-- Pilih Cabang --</option>
+            </select>
+            
+            <label>Pilih Layanan</label>
+            <select id="layanan_id" name="layanan_id" required>
+                <option value="">-- Pilih Layanan --</option>
+            </select>
+            
+            <label>Tanggal</label>
+            <input type="date" id="tanggal" name="tanggal" required>
+            
+            <label>Waktu</label>
+            <input type="time" id="waktu" name="waktu" required>
+            
+            <label>Catatan (opsional)</label>
+            <textarea id="catatan" name="catatan" rows="3"></textarea>
+            
+            <label>Lokasi Cabang</label>
+            <div id="cabangInfo" class="cabang-info"></div>
+            
+            <button class="pink btn-submit" type="submit">Pesan Sekarang</button>
+        </form>
+        <a href="dashboard.html" class="btn-back mt-15">Kembali</a>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="assets/js/booking.js"></script>
+</body>
+</html>

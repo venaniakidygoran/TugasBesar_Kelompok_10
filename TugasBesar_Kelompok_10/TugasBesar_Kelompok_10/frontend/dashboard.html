@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Salon Kecantikan</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
+    <link rel="stylesheet" href="assets/css/dashboard.css?v=2">
+</head>
+<body>
+<div class="wrap">
+    <div class="card dashboard-card">
+        <div class="dashboard-header">
+            <div class="dashboard-header-left">
+                <div class="brand-logo">SK</div>
+                <div>
+                    <h3>DASHBOARD</h3>
+                    <p class="small">Selamat datang, <strong id="userName"></strong>!</p>
+                </div>
+            </div>
+
+            <div class="profile-circle">
+                <img id="profilePhoto" src="../backend/uploads/profile/default.png" alt="Profil">
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <a href="layanan.html" class="dashboard-link"><span class="icon"></span><span class="label">Lihat Layanan</span></a>
+            <a href="booking.html" class="dashboard-link"><span class="icon"></span><span class="label">Pesan Layanan</span></a>
+            <a href="riwayat.html" class="dashboard-link"><span class="icon"></span><span class="label">Riwayat Booking</span></a>
+            <a href="profile.html" class="dashboard-link"><span class="icon"></span><span class="label">Profil</span></a>
+            <a href="admin.html" id="adminLink" class="dashboard-link" style="display: none;"><span class="icon"></span><span class="label">Admin Panel</span></a>
+            <a href="javascript:logout()" class="dashboard-link logout"><span class="icon"></span><span class="label">Keluar</span></a>
+        </div>
+    </div>
+</div>
+
+<script src="assets/js/dashboard.js"></script>
+</body>
+</html>

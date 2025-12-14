@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Salon Kecantikan</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
+    <link rel="stylesheet" href="assets/css/admin.css?v=3">
+</head>
+<body>
+<div class="wrap">
+    <div class="card">
+        <div id="loading" class="loading">Memverifikasi akses admin...</div>
+        <div id="adminContent">
+        <h3>ADMIN PANEL</h3>
+
+        <div class="admin-section">
+            <h4>Daftar Booking</h4>
+            <table id="bookingTable">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Layanan</th>
+                        <th>Tanggal</th>
+                        <th>Waktu</th>
+                        <th>Catatan</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="bookingList"></tbody>
+            </table>
+        </div>
+        
+        
+        <a href="dashboard.html" class="btn-back">Kembali</a>
+        </div>
+    </div>
+</div>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        const response = await fetch('../backend/api/get_bookings_admin.php');
+        const data = await response.json();
+        
+        if (data.success) {
+            
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+        } else {
+            
+            alert('Silakan login sebagai admin terlebih dahulu.');
+            window.location.href = 'loginadmin.html';
+        }
+    } catch (error) {
+        console.error('Auth check failed:', error);
+        alert('Gagal memverifikasi akses. Silakan login kembali.');
+        window.location.href = 'loginadmin.html';
+    }
+});
+</script>
+
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
+

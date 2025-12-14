@@ -1,0 +1,104 @@
+DROP DATABASE IF EXISTS `salonkecantikan`;
+
+CREATE DATABASE IF NOT EXISTS `salonkecantikan` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+USE `salonkecantikan`;
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `no_hp` varchar(20) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `is_admin` tinyint(1) DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `users` (`id`, `nama`, `email`, `no_hp`, `password`, `foto`, `is_admin`, `created_at`) VALUES
+(1, 'Admin Salon', 'admin@salon.com', '081234567890', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 1, '2025-12-06 00:00:00'),
+(2, 'Budi Santoso', 'budi@example.com', '081234567891', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 0, '2025-12-06 00:00:00'),
+(3, 'Siti Nurhaliza', 'siti@example.com', '081234567892', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, 0, '2025-12-06 00:00:00');
+
+ALTER TABLE `users` AUTO_INCREMENT = 4;
+
+CREATE TABLE `hargalayanan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_layanan` varchar(100) NOT NULL,
+  `harga` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `hargalayanan` (`id`, `nama_layanan`, `harga`) VALUES
+(1, 'Spa', 75000.00),
+(2, 'Hair Coloring', 60000.00),
+(3, 'Nail Art', 45000.00),
+(4, 'Creambath', 50000.00),
+(5, 'Facial Treatment', 55000.00),
+(6, 'Hair Massage', 80000.00),
+(7, 'Body Massage', 90000.00),
+(8, 'Manicure', 35000.00);
+
+ALTER TABLE `hargalayanan` AUTO_INCREMENT = 9;
+
+
+CREATE TABLE `layanan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_layanan` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `layanan` (`id`, `nama_layanan`, `created_at`) VALUES
+(1, 'Spa', '2025-12-06 00:00:00'),
+(2, 'Hair Coloring', '2025-12-06 00:00:00'),
+(3, 'Nail Art', '2025-12-06 00:00:00'),
+(4, 'Creambath', '2025-12-06 00:00:00'),
+(5, 'Facial Treatment', '2025-12-06 00:00:00'),
+(6, 'Hair Massage', '2025-12-06 00:00:00'),
+(7, 'Body Massage', '2025-12-06 00:00:00'),
+(8, 'Manicure', '2025-12-06 00:00:00');
+
+ALTER TABLE `layanan` AUTO_INCREMENT = 9;
+
+CREATE TABLE `cabang` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_cabang` varchar(100) NOT NULL,
+  `alamat` text NOT NULL,
+  `no_telepon` varchar(20) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `cabang` (`id`, `nama_cabang`, `alamat`, `no_telepon`) VALUES
+(1, 'Cabang Malioboro', 'Jl. Malioboro No. 123, Yogyakarta', '0814-1234-5656'),
+(2, 'Cabang Kraton', 'Jl. Kraton No. 45, Yogyakarta', '0814-2345-6767'),
+(3, 'Cabang Taman', 'Jl. Taman Sari No. 78, Yogyakarta', '0814-3456-7878');
+
+ALTER TABLE `cabang` AUTO_INCREMENT = 4;
+
+
+CREATE TABLE `booking` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `cabang_id` int(11) NOT NULL DEFAULT 1,
+  `layanan_id` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `waktu` time NOT NULL,
+  `catatan` text DEFAULT NULL,
+  `latitude` decimal(10,8) DEFAULT NULL,
+  `longitude` decimal(11,8) DEFAULT NULL,
+  `status` enum('pending','confirmed','cancelled','completed') DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `cabang_id` (`cabang_id`),
+  KEY `layanan_id` (`layanan_id`),
+  CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`cabang_id`) REFERENCES `cabang` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `booking_ibfk_3` FOREIGN KEY (`layanan_id`) REFERENCES `hargalayanan` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `booking` AUTO_INCREMENT = 1;
